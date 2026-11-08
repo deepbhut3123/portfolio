@@ -1,45 +1,13 @@
 import { motion } from "framer-motion";
 
-const projectGrid = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const projectCard = {
-  hidden: (index) => ({
-    opacity: 0,
-    x: index % 2 === 0 ? -34 : 34,
-    y: 36,
-    rotate: index % 2 === 0 ? -1.5 : 1.5,
-  }),
-  show: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    rotate: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const toolChip = {
-  hidden: { opacity: 0, scale: 0.88, y: 8 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.24 },
-  },
-};
-
 const Projects = () => {
   const projects = [
+    {
+      title: "JB Corporations CRM & Sales Platform",
+      details:
+        "Developed a full-stack internal CRM for leads, customers, products, categories, quotations, sales orders, reports, role-based access, global search, and WhatsApp workflows, with PDF generation and CSV lead exports.",
+      tools: "React.js, Vite, Ant Design, Node.js, Express.js, MongoDB, JWT, WhatsApp API",
+    },
     {
       title: "Veerraaj Foods ERP & Mobile App",
       details:
@@ -51,12 +19,6 @@ const Projects = () => {
       details:
         "Built an Expo mobile app and Express backend for employee operations, including secure login, user management, attendance with location logs, monthly targets, value entries, holidays, admin dashboards, and downloadable salary PDF reports calculated from attendance, holidays, fixed salary, variable salary, and target achievement.",
       tools: "React Native, Expo, Node.js, Express.js, MongoDB, JWT, PDFKit",
-    },
-    {
-      title: "Ewa4ever Beauty Salon",
-      details:
-        "Created end-to-end booking system with real-time appointment scheduling, cross-platform mobile experience, and multilingual support for users.",
-      tools: "Next.js, React Native, Node.js, MongoDB",
     },
     {
       title: "Employee ERP Management",
@@ -73,7 +35,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects">
+    <section id="projects" className="projects-section">
       <motion.div
         className="section-head projects-head"
         initial={{ opacity: 0, y: 28 }}
@@ -90,24 +52,15 @@ const Projects = () => {
         </p>
       </motion.div>
 
-      <motion.div
-        className="projects-grid"
-        variants={projectGrid}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.12 }}
-      >
+      <div className="projects-grid">
         {projects.map((project, index) => (
-          <motion.div
+          <motion.article
             key={project.title}
-            className={`project-card ${index < 2 ? "project-card-featured" : ""}`}
-            custom={index}
-            variants={projectCard}
-            whileHover={{
-              y: -10,
-              scale: 1.015,
-              transition: { duration: 0.22 },
-            }}
+            className="project-card"
+            initial={{ opacity: 0, y: 72, clipPath: "inset(0 0 24% 0)" }}
+            whileInView={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="project-card-top">
               <span className="project-index">
@@ -120,33 +73,22 @@ const Projects = () => {
                   : "Web Product"}
               </span>
             </div>
-
             <div className="project-copy">
               <h3>{project.title}</h3>
               <p>{project.details}</p>
             </div>
-
-            <motion.div
-              className="project-tools"
-              variants={{
-                hidden: {},
-                show: {
-                  transition: {
-                    staggerChildren: 0.035,
-                    delayChildren: 0.14,
-                  },
-                },
-              }}
-            >
+            <div className="project-tools">
               {project.tools.split(", ").map((tool) => (
-                <motion.span key={tool} variants={toolChip}>
-                  {tool}
-                </motion.span>
+                <span key={tool}>{tool}</span>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+            <div className="project-graphic" aria-hidden="true">
+              <span className="project-graphic-ring" />
+              <span className="project-graphic-number">{String(index + 1).padStart(2, "0")}</span>
+            </div>
+          </motion.article>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

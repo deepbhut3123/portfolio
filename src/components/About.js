@@ -1,25 +1,24 @@
 import { motion } from "framer-motion";
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 55, clipPath: "inset(0 0 18% 0)" },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
 const timelineCard = {
-  hidden: (index) => ({
+  hidden: {
     opacity: 0,
-    x: index % 2 === 0 ? -42 : 42,
-    y: 22,
-  }),
+    y: 65,
+  },
   show: {
     opacity: 1,
-    x: 0,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -49,7 +48,14 @@ const Experience = () => {
   ];
 
   return (
-    <section id="about">
+    <motion.section
+      id="about"
+      className="scroll-section scroll-section-left"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
       <motion.div
         className="section-head"
         variants={sectionReveal}
@@ -57,13 +63,14 @@ const Experience = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
       >
-        <p className="eyebrow">About Me</p>
-        <h2>From internship tasks to web and mobile product ownership</h2>
+        <p className="eyebrow">Why Work With Me</p>
+        <h2>Practical systems for teams that need work to move faster</h2>
         <p>
-          Full Stack Developer with 1+ year practical delivery experience in
-          web apps, mobile apps, ERP systems, marketplace flows, and
-          automation-driven platforms. I enjoy turning business requirements
-          into reliable features that work smoothly across screens and devices.
+          I work with businesses that need reliable software for real daily
+          operations: orders, staff activity, customers, stock, payments,
+          reports, attendance, and admin control. My focus is simple: understand
+          the workflow clearly, build the right screens and APIs, and deliver a
+          system your team can actually use.
         </p>
       </motion.div>
 
@@ -71,19 +78,17 @@ const Experience = () => {
         className="exp-list"
         variants={{
           hidden: {},
-          show: { transition: { staggerChildren: 0.12 } },
+          show: { transition: { staggerChildren: 0.16 } },
         }}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.18 }}
       >
-        {experiences.map((item, index) => (
+        {experiences.map((item) => (
           <motion.div
             key={item.role + item.duration}
             className="exp-card"
-            custom={index}
             variants={timelineCard}
-            whileHover={{ y: -7, scale: 1.01 }}
           >
             <span className="exp-marker" />
             <h3>{item.role}</h3>
@@ -94,7 +99,7 @@ const Experience = () => {
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    </motion.section>
   );
 };
 
