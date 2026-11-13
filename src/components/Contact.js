@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
 
 const Contact = () => {
   return (
@@ -102,7 +102,7 @@ const Contact = () => {
           <span className="contact-satellite contact-satellite-two" aria-hidden="true"><i /></span>
           <span className="contact-satellite contact-satellite-three" aria-hidden="true"><i /></span>
           <a className="contact-visual-link" href="mailto:deepbhut3123@gmail.com" aria-label="Email Deep Bhut">
-            <FiArrowUpRight aria-hidden="true" />
+            <FiMail aria-hidden="true" />
           </a>
         </motion.div>
       </motion.div>
